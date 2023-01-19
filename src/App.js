@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ChakraProvider,
   Box,
@@ -8,34 +8,52 @@ import {
   Code,
   Grid,
   theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+  Button,
+  HStack,
+} from "@chakra-ui/react";
+import { ColorModeSwitcher } from "./ColorModeSwitcher";
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const { t, i18n } = useTranslation();
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  }
+  console.log(t)
+  console.log(t("welcome"))
+  console.log(t("text"))
+
+
   return (
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
-    </ChakraProvider>
+    <Box theme={theme} textAlign="center" fontSize="xl">
+      <Grid minH="50vh" p={3}>
+        <ColorModeSwitcher justifySelf="flex-end" />
+        <Text fontSize={30} fontWeight='bold'>
+          {t("welcome")}!{' '}
+          {t("text")}
+        </Text>
+        <HStack justifyContent="center" m='50px'>
+          <Button
+            onClick={() => changeLanguage("th")}
+            colorScheme="red"
+          >
+            ไทย
+          </Button>
+          <Button
+            onClick={() => changeLanguage("en")}
+            colorScheme="blue"
+          >
+            English
+          </Button>
+        </HStack>
+        <Text
+        pl='100px'
+        pr='100px'
+        >
+          {t("test")}
+          </Text>
+      </Grid>
+    </Box>
   );
 }
 
